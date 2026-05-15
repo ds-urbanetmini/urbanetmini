@@ -3,9 +3,10 @@ import { Incident } from '../types/Incident';
 interface Props {
   incident: Incident;
   onNewIncident: () => void;
+  onGoToPanel: () => void;
 }
 
-export function ConfirmationCard({ incident, onNewIncident }: Props) {
+export function ConfirmationCard({ incident, onNewIncident, onGoToPanel }: Props) {
   return (
     <section className="card confirmation-card">
       <p className="eyebrow">Registro exitoso</p>
@@ -20,9 +21,14 @@ export function ConfirmationCard({ incident, onNewIncident }: Props) {
       <p>
         Evidencia: <strong>{incident.mediaType}</strong> - {incident.mediaOriginalName}
       </p>
-      <button className="secondary-button" onClick={onNewIncident}>
-        Registrar otra incidencia
-      </button>
+      <div className="hero-actions">
+        <button className="secondary-button" onClick={onNewIncident}>
+          Registrar otra incidencia
+        </button>
+        <button className="primary-button" onClick={onGoToPanel}>
+          Ir al panel municipal
+        </button>
+      </div>
     </section>
   );
 }

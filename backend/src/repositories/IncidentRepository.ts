@@ -19,6 +19,14 @@ export class IncidentRepository {
     return incident.save();
   }
 
+  async findAll(): Promise<IncidentDocument[]> {
+    return IncidentModel.find().sort({ createdAt: -1 }).exec();
+  }
+
+  async findById(id: string): Promise<IncidentDocument | null> {
+    return IncidentModel.findById(id).exec();
+  }
+
   async count(): Promise<number> {
     return IncidentModel.countDocuments().exec();
   }
