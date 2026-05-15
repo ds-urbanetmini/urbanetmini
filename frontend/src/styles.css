@@ -196,6 +196,26 @@ textarea {
   font-weight: 700;
 }
 
+
+.success-message {
+  border-radius: 14px;
+  padding: 12px 14px;
+  color: #065f46;
+  background: #d1fae5;
+  font-weight: 700;
+}
+
+.status-panel {
+  margin-top: 18px;
+}
+
+.status-form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 14px;
+}
+
 .confirmation-card {
   text-align: center;
 }
@@ -299,11 +319,16 @@ textarea {
   }
 
   .form-grid,
-  .detail-grid {
+  .detail-grid,
+  .status-form {
     grid-template-columns: 1fr;
   }
 
   .header-actions {
     justify-content: flex-start;
+  }
+
+  .status-form {
+    grid-template-columns: 1fr;
   }
 }

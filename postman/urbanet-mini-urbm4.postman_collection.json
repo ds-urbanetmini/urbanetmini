@@ -1,0 +1,125 @@
+{
+  "info": {
+    "name": "Urbanet Mini - URBM-4",
+    "description": "Colección para probar el registro, consulta, detalle y actualización de estado de incidencias municipales con evidencia multimedia.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000/api"
+    },
+    {
+      "key": "incidentId",
+      "value": "PEGAR_ID_DE_INCIDENTE"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/health"
+      }
+    },
+    {
+      "name": "Registrar incidencia con imagen",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            { "key": "type", "value": "Bache", "type": "text" },
+            { "key": "description", "value": "Bache grande en avenida principal", "type": "text" },
+            { "key": "location", "value": "Av. Central 123, Villa El Salvador", "type": "text" },
+            { "key": "citizenName", "value": "Juan Perez", "type": "text" },
+            { "key": "phone", "value": "999999999", "type": "text" },
+            { "key": "media", "type": "file", "src": "../test-assets/bache-ejemplo.png" }
+          ]
+        },
+        "url": "{{baseUrl}}/incidents"
+      }
+    },
+    {
+      "name": "Registrar incidencia con video",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            { "key": "type", "value": "Alumbrado público", "type": "text" },
+            { "key": "description", "value": "Poste de luz con falla durante la noche", "type": "text" },
+            { "key": "location", "value": "Av. Los Alamos 450", "type": "text" },
+            { "key": "citizenName", "value": "Maria Lopez", "type": "text" },
+            { "key": "phone", "value": "988888888", "type": "text" },
+            { "key": "media", "type": "file", "src": "../test-assets/video-ejemplo.mp4" }
+          ]
+        },
+        "url": "{{baseUrl}}/incidents"
+      }
+    },
+    {
+      "name": "Registrar incidencia con audio",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            { "key": "type", "value": "Emergencia", "type": "text" },
+            { "key": "description", "value": "Reporte de emergencia enviado por audio", "type": "text" },
+            { "key": "location", "value": "Parque central", "type": "text" },
+            { "key": "citizenName", "value": "Carlos Ramos", "type": "text" },
+            { "key": "phone", "value": "977777777", "type": "text" },
+            { "key": "media", "type": "file", "src": "../test-assets/audio-ejemplo.wav" }
+          ]
+        },
+        "url": "{{baseUrl}}/incidents"
+      }
+    },
+    {
+      "name": "Listar incidencias",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/incidents"
+      }
+    },
+    {
+      "name": "Ver detalle de incidencia",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/incidents/{{incidentId}}"
+      }
+    },
+    {
+      "name": "Actualizar estado a En revisión",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"En revisión\"\n}"
+        },
+        "url": "{{baseUrl}}/incidents/{{incidentId}}/status"
+      }
+    },
+    {
+      "name": "Actualizar estado a Atendido",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"Atendido\"\n}"
+        },
+        "url": "{{baseUrl}}/incidents/{{incidentId}}/status"
+      }
+    }
+  ]
+}

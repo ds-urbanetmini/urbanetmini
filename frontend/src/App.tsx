@@ -42,7 +42,7 @@ export default function App() {
           <button className="nav-button" onClick={() => setCurrentView('register')}>Registrar</button>
           <button className="nav-button" onClick={goToPanel}>Panel municipal</button>
         </nav>
-        <span>URBM-3 · Consulta y detalle multimedia</span>
+        <span>URBM-4 · Estado, documentación y entrega</span>
       </header>
 
       {currentView === 'home' && <HomePage onStart={() => setCurrentView('register')} onMunicipalPanel={goToPanel} />}
