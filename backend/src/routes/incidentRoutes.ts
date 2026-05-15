@@ -13,3 +13,4 @@ export const incidentRoutes = Router();
 incidentRoutes.get('/', incidentController.listIncidents);
 incidentRoutes.post('/', uploadIncidentMedia.single('media'), incidentController.createIncident);
 incidentRoutes.get('/:id', incidentController.getIncidentById);
+incidentRoutes.patch('/:id/status', incidentController.updateIncidentStatus);

@@ -1,6 +1,6 @@
 import path from 'path';
 import { CreateIncidentData, IncidentRepository } from '../repositories/IncidentRepository';
-import { IncidentDocument, IncidentType, MediaType } from '../models/Incident';
+import { IncidentDocument, IncidentStatus, IncidentType, MediaType } from '../models/Incident';
 
 export interface CreateIncidentRequest {
   type?: string;
@@ -10,7 +10,21 @@ export interface CreateIncidentRequest {
   phone?: string;
 }
 
+export interface UpdateIncidentStatusRequest {
+  status?: string;
+}
+
 export class IncidentService {
+  private readonly allowedIncidentTypes: IncidentType[] = [
+    'Bache',
+    'Alumbrado público',
+    'Basura acumulada',
+    'Seguridad ciudadana',
+    'Emergencia'
+  ];
+
+  private readonly allowedStatuses: IncidentStatus[] = ['Pendiente', 'En revisión', 'Atendido'];
+
   constructor(private readonly incidentRepository: IncidentRepository) {}
 
   async createIncident(data: CreateIncidentRequest, file?: Express.Multer.File): Promise<IncidentDocument> {
@@ -50,10 +64,19 @@ export class IncidentService {
     return incident;
   }
 
-  private validateIncidentData(data: CreateIncidentRequest, file?: Express.Multer.File): void {
-    const allowedTypes = ['Bache', 'Alumbrado público', 'Basura acumulada', 'Seguridad ciudadana', 'Emergencia'];
+  async updateIncidentStatus(id: string, data: UpdateIncidentStatusRequest): Promise<IncidentDocument> {
+    const status = this.validateStatus(data.status);
+    const incident = await this.incidentRepository.updateStatus(id, status);
 
-    if (!data.type || !allowedTypes.includes(data.type)) {
+    if (!incident) {
+      throw new Error('No se encontró la incidencia solicitada');
+    }
+
+    return incident;
+  }
+
+  private validateIncidentData(data: CreateIncidentRequest, file?: Express.Multer.File): void {
+    if (!data.type || !this.allowedIncidentTypes.includes(data.type as IncidentType)) {
       throw new Error('El tipo de incidencia es obligatorio o no es válido');
     }
 
@@ -70,6 +93,14 @@ export class IncidentService {
     }
 
     this.getMediaType(file.mimetype);
+  }
+
+  private validateStatus(status?: string): IncidentStatus {
+    if (!status || !this.allowedStatuses.includes(status as IncidentStatus)) {
+      throw new Error('El estado no es válido. Use: Pendiente, En revisión o Atendido');
+    }
+
+    return status as IncidentStatus;
   }
 
   private getMediaType(mimetype: string): MediaType {

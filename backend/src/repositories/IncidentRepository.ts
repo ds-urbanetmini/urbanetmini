@@ -27,6 +27,14 @@ export class IncidentRepository {
     return IncidentModel.findById(id).exec();
   }
 
+  async updateStatus(id: string, status: IncidentStatus): Promise<IncidentDocument | null> {
+    return IncidentModel.findByIdAndUpdate(
+      id,
+      { status },
+      { new: true, runValidators: true }
+    ).exec();
+  }
+
   async count(): Promise<number> {
     return IncidentModel.countDocuments().exec();
   }
