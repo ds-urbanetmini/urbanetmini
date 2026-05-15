@@ -17,4 +17,32 @@ export class IncidentController {
       res.status(400).json({ message });
     }
   };
+
+  listIncidents = async (_req: Request, res: Response): Promise<void> => {
+    try {
+      const incidents = await this.incidentService.listIncidents();
+
+      res.json({
+        message: 'Incidencias obtenidas correctamente',
+        data: incidents
+      });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Error al listar incidencias';
+      res.status(500).json({ message });
+    }
+  };
+
+  getIncidentById = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const incident = await this.incidentService.getIncidentById(req.params.id);
+
+      res.json({
+        message: 'Incidencia obtenida correctamente',
+        data: incident
+      });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Error al obtener incidencia';
+      res.status(404).json({ message });
+    }
+  };
 }

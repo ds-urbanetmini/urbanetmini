@@ -36,6 +36,20 @@ export class IncidentService {
     return this.incidentRepository.create(incidentData);
   }
 
+  async listIncidents(): Promise<IncidentDocument[]> {
+    return this.incidentRepository.findAll();
+  }
+
+  async getIncidentById(id: string): Promise<IncidentDocument> {
+    const incident = await this.incidentRepository.findById(id);
+
+    if (!incident) {
+      throw new Error('No se encontró la incidencia solicitada');
+    }
+
+    return incident;
+  }
+
   private validateIncidentData(data: CreateIncidentRequest, file?: Express.Multer.File): void {
     const allowedTypes = ['Bache', 'Alumbrado público', 'Basura acumulada', 'Seguridad ciudadana', 'Emergencia'];
 
