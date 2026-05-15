@@ -1,0 +1,33 @@
+{
+  "info": {
+    "name": "Urbanet Mini URBM-2",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health API",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:3000/api/health"
+      }
+    },
+    {
+      "name": "Registrar incidencia con multimedia",
+      "request": {
+        "method": "POST",
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            { "key": "type", "value": "Bache", "type": "text" },
+            { "key": "description", "value": "Bache grande en avenida principal", "type": "text" },
+            { "key": "location", "value": "Av. Central 123", "type": "text" },
+            { "key": "citizenName", "value": "Juan Perez", "type": "text" },
+            { "key": "phone", "value": "999999999", "type": "text" },
+            { "key": "media", "type": "file", "src": "" }
+          ]
+        },
+        "url": "http://localhost:3000/api/incidents"
+      }
+    }
+  ]
+}
