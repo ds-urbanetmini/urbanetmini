@@ -1,0 +1,48 @@
+{
+  "info": {
+    "name": "Urbanet Mini - URBM-3",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:3000/api/health"
+      }
+    },
+    {
+      "name": "Registrar incidencia con multimedia",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            { "key": "type", "value": "Bache", "type": "text" },
+            { "key": "description", "value": "Bache grande en avenida principal", "type": "text" },
+            { "key": "location", "value": "Av. Central 123, Villa El Salvador", "type": "text" },
+            { "key": "citizenName", "value": "Juan Perez", "type": "text" },
+            { "key": "phone", "value": "999999999", "type": "text" },
+            { "key": "media", "type": "file", "src": "../test-assets/bache-ejemplo.png" }
+          ]
+        },
+        "url": "http://localhost:3000/api/incidents"
+      }
+    },
+    {
+      "name": "Listar incidencias",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:3000/api/incidents"
+      }
+    },
+    {
+      "name": "Ver detalle de incidencia",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:3000/api/incidents/{{incidentId}}"
+      }
+    }
+  ]
+}
